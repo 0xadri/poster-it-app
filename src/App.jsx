@@ -13,7 +13,7 @@ function App() {
       </header> */}
         <NavBar />
         <main className="h-full pt-15 px-15">
-          <h1 className="text-8xl font-bold">Let's get started!</h1>
+          <h1 className="text-8xl font-bold my-10">Let's get started!</h1>
           <div>
             {/* PROJECT TASKS
               Done:
@@ -31,8 +31,8 @@ function App() {
                 - Pick Musicians From List
                 - Pick Images From List
            */}
-            <SearchBar />
             <GenerateButton />
+            <SearchBar />
             <Poster />
           </div>
         </main>
