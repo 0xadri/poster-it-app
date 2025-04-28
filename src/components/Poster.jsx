@@ -13,7 +13,7 @@ const Poster = () => {
         return (
           <div
             key={item}
-            className="relative aspect-square rounded-lg bg-fuchsia-500 p-1 bg-gradient-to-tl from-indigo-600 to-pink-600"
+            className="aspect-square rounded-lg bg-fuchsia-500 p-1 bg-gradient-to-tl from-indigo-600 to-pink-600"
           >
             <NumberInBrackets number={item} />
           </div>
