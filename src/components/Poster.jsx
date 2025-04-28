@@ -1,3 +1,5 @@
+import NumberInBrackets from "./NumberInBrackets";
+
 const Poster = () => {
   const total = 90;
   let arrayIds = [];
@@ -11,11 +13,9 @@ const Poster = () => {
         return (
           <div
             key={item}
-            className="aspect-square rounded-lg bg-fuchsia-500 p-1 bg-gradient-to-tl from-indigo-600 to-pink-600"
+            className="relative aspect-square rounded-lg bg-fuchsia-500 p-1 bg-gradient-to-tl from-indigo-600 to-pink-600"
           >
-            <div className="w-full h-full rounded-md bg-black flex items-center justify-center">
-              {item}
-            </div>
+            <NumberInBrackets number={item} />
           </div>
         );
       })}
