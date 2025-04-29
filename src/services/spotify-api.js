@@ -48,8 +48,8 @@ export const searchArtist = async (searchInput) => {
 }
 
 export const searchArtistSpitFirstResult = async (searchInput) => {
-  const res = await searchArtist(searchInput);
-  return res.artists.items[0];
+  const jsonRes = await searchArtist(searchInput);
+  return jsonRes.artists.items[0];
 }
 
 export const searchArtistWithin = async (searchInput,accessToken) => {

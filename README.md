@@ -24,16 +24,17 @@
 - API Fetch: Images For Musician (From More Sources)
 - onhover: show artist name & searched term
 - Image square (hide overflow)
+- Loading effect: show image by image
+- Loading effect: on Generate btn
+- Button/Action: Remove Artist From Artists Shown
 
 ### PROG
 
-- Loading effect
-- Action: Remove Artist From Musicians
-- Action: Add Artist To Musicians
+- Button/Action: Add Artist To Musicians
 
 ### TODO
 
-- API Fetch: New Image For Artist (check other sources)
+- API Fetch: New Image For Artist (find more sources)
 - 1. API Fetch: avoid spamming w requests (several artists in 1 query? batch? other?)
 - 1.a DB: Store Artist Spotify ID in DB
 - 1.b DB: Store Artist Spotify Image in DB

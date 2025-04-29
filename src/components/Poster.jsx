@@ -6,7 +6,7 @@ import { searchArtistSpitFirstResult } from "../services/spotify-api";
 import ArtistCoverImage from "./ArtistCoverImage";
 import { mockList } from "../utils/mock-list";
 
-const Poster = ({ arrayIds, artistsDeets, isLoading }) => {
+const Poster = ({ arrayIds, artistsDeets, isLoading, handleDeleteCell }) => {
   return (
     <>
       <div className="grid grid-cols-6 gap-2">
@@ -19,7 +19,11 @@ const Poster = ({ arrayIds, artistsDeets, isLoading }) => {
               {artistsDeets.length === 0 ? (
                 <NumberInBrackets number={item} />
               ) : (
-                <ArtistCoverImage deets={artistsDeets[item]} number={item} />
+                <ArtistCoverImage
+                  deets={artistsDeets[item]}
+                  number={item}
+                  handleDeleteCell={handleDeleteCell}
+                />
               )}
             </div>
           );

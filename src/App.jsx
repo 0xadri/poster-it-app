@@ -19,6 +19,14 @@ function App() {
     arrayIds.push(i);
   }
 
+  const handleDeleteCell = (cellId) => {
+    setArtistsDeets((prev) => {
+      const newArtistsDeets = [...artistsDeets]; // Clone array for immutability
+      newArtistsDeets[cellId] = null; // Modify array
+      return newArtistsDeets;
+    });
+  };
+
   const handleGenerate = () => {
     const artistsMegaList = [...new Set(artists)]; // get musician list & remove duplicates
     const artistsSelected = shuffleIt(artistsMegaList).slice(0, TOTAL_ITEMS); // pick x random items from list
@@ -67,6 +75,7 @@ function App() {
               arrayIds={arrayIds}
               artistsDeets={artistsDeets}
               isLoading={isLoading}
+              handleDeleteCell={handleDeleteCell}
             />
           </div>
         </main>
