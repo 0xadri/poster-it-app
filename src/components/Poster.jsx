@@ -5,12 +5,10 @@ import { shuffleIt } from "../utils/shuffleArray";
 import { searchArtistSpitFirstResult } from "../services/spotify-api";
 import ArtistCoverImage from "./ArtistCoverImage";
 import { mockList } from "../utils/mock-list";
-import LoadingBar from "./LoadingBar";
 
 const Poster = ({ arrayIds, artistsDeets, isLoading }) => {
   return (
     <>
-      {isLoading && <LoadingBar />}
       <div className="grid grid-cols-6 gap-2">
         {arrayIds.map((item) => {
           return (
@@ -21,7 +19,7 @@ const Poster = ({ arrayIds, artistsDeets, isLoading }) => {
               {artistsDeets.length === 0 ? (
                 <NumberInBrackets number={item} />
               ) : (
-                <ArtistCoverImage deets={artistsDeets[item]} />
+                <ArtistCoverImage deets={artistsDeets[item]} number={item} />
               )}
             </div>
           );

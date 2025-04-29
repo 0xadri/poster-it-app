@@ -58,7 +58,10 @@ function App() {
         <main className="h-full pt-15 px-15">
           <h1 className="text-8xl font-bold my-10">Let's get started!</h1>
           <div>
-            <GenerateButton handleGenerate={handleGenerate} />
+            <GenerateButton
+              handleGenerate={handleGenerate}
+              isLoading={isLoading}
+            />
             <SearchBar />
             <Poster
               arrayIds={arrayIds}
