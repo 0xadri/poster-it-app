@@ -1,10 +1,56 @@
+import { useState } from "react";
 import "./App.css";
 import GenerateButton from "./components/GenerateButton";
 import NavBar from "./components/NavBar";
 import Poster from "./components/poster";
 import SearchBar from "./components/SearchBar";
+import { artists } from "./utils/artistsmegalist";
+import { shuffleIt } from "./utils/shuffleArray";
+import { searchArtistSpitFirstResult } from "./services/spotify-api";
+import { mockList } from "./utils/mock-list";
 
 function App() {
+  const [artistsDeets, setArtistsDeets] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const TOTAL_ITEMS = 90;
+  let arrayIds = [];
+  for (let i = 1; i <= TOTAL_ITEMS; i++) {
+    arrayIds.push(i);
+  }
+
+  const handleGenerate = () => {
+    const artistsMegaList = [...new Set(artists)]; // get musician list & remove duplicates
+    const artistsSelected = shuffleIt(artistsMegaList).slice(0, TOTAL_ITEMS); // pick x random items from list
+
+    // Create array, add each items as object with artist name, img url, etc
+    const artistsSelectedDetails = [];
+    const fetchDetailsForEachArtist = async () => {
+      setIsLoading(true);
+      for (const i in artistsSelected) {
+        const artistName = artistsSelected[i];
+        console.log(i);
+        console.log(artistName);
+        let artist = await searchArtistSpitFirstResult(artistName);
+        artist = {
+          ...artist,
+          origSearchTerm: artistName,
+        };
+        artistsSelectedDetails.push(artist);
+        setArtistsDeets([...artistsSelectedDetails]);
+      }
+      console.log(artistsSelectedDetails);
+      setIsLoading(false);
+    };
+    const mockFetchDetailsForEachArtist = () => {
+      setIsLoading(true);
+      setArtistsDeets([...mockList]);
+      setIsLoading(false);
+    };
+    fetchDetailsForEachArtist(); // Prod
+    // mockFetchDetailsForEachArtist(); // Dev Purpose
+  };
+
   return (
     <>
       <div className="h-screen">
@@ -12,39 +58,13 @@ function App() {
         <main className="h-full pt-15 px-15">
           <h1 className="text-8xl font-bold my-10">Let's get started!</h1>
           <div>
-            {/* PROJECT TASKS
-              DONE:
-                - Poster Component Skeleton
-                - API Fetch: One Image Per Musician
-                - Mock Top Artist List (Hardcoded)
-                - API Fetch: Images For Musician (From More Sources)
-                - onhover: show artist name & searched term
-              PROG:
-                - Image square (hide overflow)
-                - Action: Remove Artist From Musicians
-                - Action: Add Artist To Musicians
-              TODO:
-                - API Fetch: New Image For Artist (check other sources)
-                - 1. API Fetch: avoid spamming w requests (several artists in 1 query? batch? other?)
-                - 1.a DB: Store Artist Spotify ID in DB
-                - 1.b DB: Store Artist Spotify Image in DB
-                - Expand Mock Top Artist List (Hardcoded)
-                - Pick Poster Format
-                - Pick Poster Size Horiz
-                - Pick Poster Size Vert
-                - Pick Items Per Row
-                - Pick Items Per Column
-                - Pick Musicians From List
-                - Pick Images From List
-              SHOULD
-                - Save Images in Database
-              COULD
-                - API Fetch: Musicians List
-                - API Fetch: YOUR Top Artists On Spotify
-           */}
-            <GenerateButton />
+            <GenerateButton handleGenerate={handleGenerate} />
             <SearchBar />
-            <Poster />
+            <Poster
+              arrayIds={arrayIds}
+              artistsDeets={artistsDeets}
+              isLoading={isLoading}
+            />
           </div>
         </main>
         <footer></footer>

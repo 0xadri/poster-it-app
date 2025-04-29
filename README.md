@@ -1,12 +1,60 @@
-# React + Vite
+### Tech
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+`Javascript` · `ReactJS`· `Vite` · `NodeJS` · `TailwindCSS`
 
-Currently, two official plugins are available:
+### Goals
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+✣ Practice `ReactJS`: `useState`, `useRef`, `router`, `spreader syntax`, `props drilling`, `lifting the state`, `compute values`, `derive values`, `state mgmt`, `Data Fetching via API`, `Spotify API`
 
-## Expanding the ESLint configuration
+✣ Practice `JavaScript`: `spreader syntax`, `map()`,
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+✣ Practice `TailwindCSS`
+
+# Try It Live
+
+🚀 Coming soon...
+
+## Project Tasks
+
+### DONE
+
+- Poster Component Skeleton
+- API Fetch: One Image Per Musician
+- Mock Top Artist List (Hardcoded)
+- API Fetch: Images For Musician (From More Sources)
+- onhover: show artist name & searched term
+- Image square (hide overflow)
+
+### PROG
+
+- Loading effect
+- Action: Remove Artist From Musicians
+- Action: Add Artist To Musicians
+
+### TODO
+
+- API Fetch: New Image For Artist (check other sources)
+- 1. API Fetch: avoid spamming w requests (several artists in 1 query? batch? other?)
+- 1.a DB: Store Artist Spotify ID in DB
+- 1.b DB: Store Artist Spotify Image in DB
+- Expand Mock Top Artist List (Hardcoded)
+- Pick Poster Format
+- Pick Poster Size Horiz
+- Pick Poster Size Vert
+- Pick Items Per Row
+- Pick Items Per Column
+- Pick Musicians From List
+- Pick Images From List
+
+### SHOULD
+
+- Save Images in Database
+
+### COULD
+
+- API Fetch: Musicians List
+- API Fetch: YOUR Top Artists On Spotify
+
+# Preview
+
+Coming soon...
