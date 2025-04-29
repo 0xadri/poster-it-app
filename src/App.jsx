@@ -8,9 +8,6 @@ function App() {
   return (
     <>
       <div className="h-screen">
-        {/* <header className="absolute top-0 w-full z-50 py-2 bg-indigo-900 px-15">
-        Musicians Patchwork App .... d((-_-))b
-      </header> */}
         <NavBar />
         <main className="h-full pt-15 px-15">
           <h1 className="text-8xl font-bold my-10">Let's get started!</h1>
@@ -21,13 +18,16 @@ function App() {
                 - API Fetch: One Image Per Musician
                 - Mock Top Artist List (Hardcoded)
                 - API Fetch: Images For Musician (From More Sources)
+                - onhover: show artist name & searched term
               PROG:
-                - onhover: show artist name
-                - API Fetch: avoid spamming w requests (several artists in 1 query? batch? other?)
+                - Image square (hide overflow)
                 - Action: Remove Artist From Musicians
                 - Action: Add Artist To Musicians
               TODO:
                 - API Fetch: New Image For Artist (check other sources)
+                - 1. API Fetch: avoid spamming w requests (several artists in 1 query? batch? other?)
+                - 1.a DB: Store Artist Spotify ID in DB
+                - 1.b DB: Store Artist Spotify Image in DB
                 - Expand Mock Top Artist List (Hardcoded)
                 - Pick Poster Format
                 - Pick Poster Size Horiz

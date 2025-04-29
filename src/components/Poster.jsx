@@ -40,7 +40,7 @@ const Poster = () => {
       setArtistsDeets([...artistsSelectedDetails]);
     };
     // fetchDetailsForEachArtist();
-    // setArtistsDeets([...mockList]); // Dev Purpose
+    setArtistsDeets([...mockList]); // Dev Purpose
     // console.log(mockList);
     // const oneArtist = getArtistDetails(artistsSelected[0]);
   }, []);
@@ -50,12 +50,12 @@ const Poster = () => {
   }, [artistsDeets]);
 
   return (
-    <div className="grid grid-cols-6 gap-2 aspect-2/3">
+    <div className="grid grid-cols-6 gap-2">
       {arrayIds.map((item) => {
         return (
           <div
             key={item}
-            className="aspect-square rounded-lg bg-fuchsia-500 p-1 bg-gradient-to-tl from-indigo-600 to-pink-600"
+            className="aspect-square min-h-0 overflow-hidden rounded-lg bg-fuchsia-500 p-1 bg-gradient-to-tl from-indigo-600 to-pink-600"
           >
             {artistsDeets.length === 0 ? (
               <NumberInBrackets number={item} />

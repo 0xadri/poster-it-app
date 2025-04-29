@@ -542,5 +542,7 @@ export const artists = [
   "The Jackson 5",
   "Fugees",
   "Youssou N' Dour",
-  "Salif Keita"
+  "Salif Keita",
+  "Ratatat",
+  "Indochine"
 ]
