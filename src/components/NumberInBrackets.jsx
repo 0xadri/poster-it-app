@@ -6,7 +6,7 @@ const NumberInBrackets = ({ number }) => {
           <div className="h-7 w-5 bg-white dark:bg-gray-950"></div>
         </div>
         <div className=" col-start-1 row-start-1 grid place-content-center tracking-widest">
-          {number > 10 ? number : "0" + number}
+          {number > 9 ? number : "0" + number}
         </div>
       </div>
     </div>

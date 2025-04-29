@@ -46,6 +46,12 @@ export const searchArtist = async (searchInput) => {
   }
   return await res.json();
 }
+
+export const searchArtistSpitFirstResult = async (searchInput) => {
+  const res = await searchArtist(searchInput);
+  return res.artists.items[0];
+}
+
 export const searchArtistWithin = async (searchInput,accessToken) => {
   var artistParameters = {
     method: 'GET',

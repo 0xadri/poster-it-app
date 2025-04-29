@@ -16,13 +16,19 @@ function App() {
           <h1 className="text-8xl font-bold my-10">Let's get started!</h1>
           <div>
             {/* PROJECT TASKS
-              Done:
+              DONE:
                 - Poster Component Skeleton
                 - API Fetch: One Image Per Musician
-              Prog:
-                - API Fetch: Musicians List
+                - Mock Top Artist List (Hardcoded)
                 - API Fetch: Images For Musician (From More Sources)
-               Todo:
+              PROG:
+                - onhover: show artist name
+                - API Fetch: avoid spamming w requests (several artists in 1 query? batch? other?)
+                - Action: Remove Artist From Musicians
+                - Action: Add Artist To Musicians
+              TODO:
+                - API Fetch: New Image For Artist (check other sources)
+                - Expand Mock Top Artist List (Hardcoded)
                 - Pick Poster Format
                 - Pick Poster Size Horiz
                 - Pick Poster Size Vert
@@ -30,6 +36,11 @@ function App() {
                 - Pick Items Per Column
                 - Pick Musicians From List
                 - Pick Images From List
+              SHOULD
+                - Save Images in Database
+              COULD
+                - API Fetch: Musicians List
+                - API Fetch: YOUR Top Artists On Spotify
            */}
             <GenerateButton />
             <SearchBar />
