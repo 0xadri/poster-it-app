@@ -1,5 +1,3 @@
-import { Link } from "react-router-dom";
-
 const NavBar = () => {
   return (
     <nav className="px-15 bg-white dark:bg-gray-900 fixed w-full z-20 top-0 start-0 border-b border-gray-200 dark:border-gray-600">

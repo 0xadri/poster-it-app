@@ -1,6 +1,6 @@
 import NumberInBrackets from "./NumberInBrackets";
 
-const ArtistCoverImage = ({ deets, number, handleDeleteCell }) => {
+const ArtistCoverImage = ({ deets, number, handleDeleteCell, handleAdd }) => {
   return (
     <>
       {deets && deets.images && deets.images[0] && deets.images[0].url ? (
@@ -20,7 +20,7 @@ const ArtistCoverImage = ({ deets, number, handleDeleteCell }) => {
           </div>
         </div>
       ) : (
-        <NumberInBrackets number={number} />
+        <NumberInBrackets number={number} handleAdd={handleAdd} />
       )}
     </>
   );

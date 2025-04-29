@@ -1,18 +1,7 @@
-import { useEffect, useState } from "react";
 import NumberInBrackets from "./NumberInBrackets";
-import { artists } from "../utils/artistsmegalist";
-import { shuffleIt } from "../utils/shuffleArray";
-import { searchArtistSpitFirstResult } from "../services/spotify-api";
 import ArtistCoverImage from "./ArtistCoverImage";
-import { mockList } from "../utils/mock-list";
 
-const Poster = ({
-  arrayIds,
-  artistsDeets,
-  isLoading,
-  handleDeleteCell,
-  handleAdd,
-}) => {
+const Poster = ({ arrayIds, artistsDeets, handleDeleteCell, handleAdd }) => {
   return (
     <>
       <div className="grid grid-cols-6 gap-2">
@@ -29,6 +18,7 @@ const Poster = ({
                   deets={artistsDeets[item]}
                   number={item}
                   handleDeleteCell={handleDeleteCell}
+                  handleAdd={handleAdd}
                 />
               )}
             </div>

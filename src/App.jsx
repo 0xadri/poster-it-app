@@ -21,7 +21,7 @@ function App() {
 
   const handleDeleteCell = (cellId) => {
     setArtistsDeets((prev) => {
-      const newArtistsDeets = [...artistsDeets]; // Clone array for immutability
+      const newArtistsDeets = [...prev]; // Clone array for immutability
       newArtistsDeets[cellId] = null; // Modify array
       return newArtistsDeets;
     });
@@ -29,6 +29,26 @@ function App() {
 
   const handleAdd = (cellId) => {
     console.log("add button clicked for cell: " + cellId);
+    // get random artist name from list
+    const artistsMegaList = [...new Set(artists)]; // get musician list & remove duplicates
+    const artistName = shuffleIt(artistsMegaList).slice(0, 1)[0]; // pick x random items from list
+    // get image for artist name
+    console.log(artistName);
+    const searchAndAdd = async (artistName) => {
+      let artist = await searchArtistSpitFirstResult(artistName);
+      artist = {
+        ...artist,
+        origSearchTerm: artistName,
+      };
+      console.log(artist);
+      // update state
+      setArtistsDeets((prev) => {
+        const newArtistsDeets = [...prev]; // Clone array for immutability
+        newArtistsDeets[cellId] = artist; // Modify array
+        return newArtistsDeets;
+      });
+    };
+    searchAndAdd(artistName);
   };
 
   const handleGenerate = () => {
@@ -78,7 +98,6 @@ function App() {
             <Poster
               arrayIds={arrayIds}
               artistsDeets={artistsDeets}
-              isLoading={isLoading}
               handleDeleteCell={handleDeleteCell}
               handleAdd={handleAdd}
             />
