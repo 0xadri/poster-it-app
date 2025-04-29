@@ -27,6 +27,10 @@ function App() {
     });
   };
 
+  const handleAdd = (cellId) => {
+    console.log("add button clicked for cell: " + cellId);
+  };
+
   const handleGenerate = () => {
     const artistsMegaList = [...new Set(artists)]; // get musician list & remove duplicates
     const artistsSelected = shuffleIt(artistsMegaList).slice(0, TOTAL_ITEMS); // pick x random items from list
@@ -76,6 +80,7 @@ function App() {
               artistsDeets={artistsDeets}
               isLoading={isLoading}
               handleDeleteCell={handleDeleteCell}
+              handleAdd={handleAdd}
             />
           </div>
         </main>
