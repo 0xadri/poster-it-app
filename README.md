@@ -27,17 +27,19 @@
 - Loading effect: show image by image
 - Loading effect: on Generate btn
 - Button/Action: Remove Artist From Artists Shown
+- Button/Action: Add Random Artist To Musicians
 
 ### PROG
 
-- Button/Action: Add Artist To Musicians
-
 ### TODO
 
-- API Fetch: New Image For Artist (find more sources)
+- improve API calls, use good practices to deal with other states than 202 (error & isLoading updated accordingly)
+- add "good" index to cells so only the changing ones get updated in the DOM
+- check if API calls make token public, check if .env var accessible from console
 - 1. API Fetch: avoid spamming w requests (several artists in 1 query? batch? other?)
-- 1.a DB: Store Artist Spotify ID in DB
-- 1.b DB: Store Artist Spotify Image in DB
+- 1.a web storage: Store Artist Spotify ID in localstorage
+- 1.b web storage: Store Artist Spotify Image URL in localstorage
+- API Fetch: New Image For Artist (find more sources)
 - Expand Mock Top Artist List (Hardcoded)
 - Pick Poster Format
 - Pick Poster Size Horiz

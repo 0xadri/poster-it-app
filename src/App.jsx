@@ -8,10 +8,12 @@ import { artists } from "./utils/artistsmegalist";
 import { shuffleIt } from "./utils/shuffleArray";
 import { searchArtistSpitFirstResult } from "./services/spotify-api";
 import { mockList } from "./utils/mock-list";
+import ErrorComp from "./components/ErrorComp";
 
 function App() {
   const [artistsDeets, setArtistsDeets] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(null);
 
   const TOTAL_ITEMS = 90;
   let arrayIds = [];
@@ -35,18 +37,23 @@ function App() {
     // get image for artist name
     console.log(artistName);
     const searchAndAdd = async (artistName) => {
-      let artist = await searchArtistSpitFirstResult(artistName);
-      artist = {
-        ...artist,
-        origSearchTerm: artistName,
-      };
-      console.log(artist);
-      // update state
-      setArtistsDeets((prev) => {
-        const newArtistsDeets = [...prev]; // Clone array for immutability
-        newArtistsDeets[cellId] = artist; // Modify array
-        return newArtistsDeets;
-      });
+      const res = await searchArtistSpitFirstResult(artistName);
+      if (res.status === "success") {
+        // let artist = await searchArtistSpitFirstResult(artistName);
+        const artist = {
+          ...res.artist,
+          origSearchTerm: artistName,
+        };
+        console.log(artist);
+        // update state
+        setArtistsDeets((prev) => {
+          const newArtistsDeets = [...prev]; // Clone array for immutability
+          newArtistsDeets[cellId] = artist; // Modify array
+          return newArtistsDeets;
+        });
+      } else {
+        setErrorMsg(res.errorMessage);
+      }
     };
     searchAndAdd(artistName);
   };
@@ -63,13 +70,17 @@ function App() {
         const artistName = artistsSelected[i];
         console.log(i);
         console.log(artistName);
-        let artist = await searchArtistSpitFirstResult(artistName);
-        artist = {
-          ...artist,
-          origSearchTerm: artistName,
-        };
-        artistsSelectedDetails.push(artist);
-        setArtistsDeets([...artistsSelectedDetails]);
+        let res = await searchArtistSpitFirstResult(artistName);
+        if (res.status === "success") {
+          const artist = {
+            ...res.artist,
+            origSearchTerm: artistName,
+          };
+          artistsSelectedDetails.push(artist);
+          setArtistsDeets([...artistsSelectedDetails]);
+        } else {
+          setErrorMsg(res.errorMessage);
+        }
       }
       console.log(artistsSelectedDetails);
       setIsLoading(false);
@@ -87,6 +98,7 @@ function App() {
     <>
       <div className="h-screen">
         <NavBar />
+        {errorMsg && <ErrorComp message={errorMsg} />}
         <main className="h-full pt-15 px-15">
           <h1 className="text-8xl font-bold my-10">Let's get started!</h1>
           <div>
@@ -94,7 +106,8 @@ function App() {
               handleGenerate={handleGenerate}
               isLoading={isLoading}
             />
-            <SearchBar />
+            {/* <SearchBar /> */}
+
             <Poster
               arrayIds={arrayIds}
               artistsDeets={artistsDeets}

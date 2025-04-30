@@ -5,13 +5,6 @@ const SPOTIFY_BASE_URL="https://api.spotify.com/v1";
  * https://developer.spotify.com/documentation/web-api
 */ 
 
-const fetchCall = async (req) => {
-  const res = await fetch(req);
-  const data = await res.json();
-  console.log(data)
-  return data;
-}
-
 const getFreshApiAccessToken = () => {
   // console.log("fetching new api access token...")
   var authParameters = {
@@ -37,22 +30,17 @@ const getApiAccessToken = async () => {
   }
 }
 
-export const searchArtist = async (searchInput) => {
-  let accessToken = await getApiAccessToken();  
-  let res = await searchArtistWithin(searchInput,accessToken)
-  if (res.status === 401){
-    accessToken = await getFreshApiAccessToken();
-    res = await searchArtistWithin(searchInput,accessToken)
-  }
-  return await res.json();
-}
+// export const searchArtist = async (searchInput) => {
+//   let accessToken = await getApiAccessToken();
+//   let res = await searchArtistWithin(searchInput,accessToken)
+//   if (res.status === 401){
+//     accessToken = await getFreshApiAccessToken();
+//     res = await searchArtistWithin(searchInput,accessToken)
+//   }
+//   return await res.json();
+// }
 
-export const searchArtistSpitFirstResult = async (searchInput) => {
-  const jsonRes = await searchArtist(searchInput);
-  return jsonRes.artists.items[0];
-}
-
-export const searchArtistWithin = async (searchInput,accessToken) => {
+const searchArtistWithin = async (searchInput,accessToken) => {
   var artistParameters = {
     method: 'GET',
     headers: {
@@ -64,9 +52,56 @@ export const searchArtistWithin = async (searchInput,accessToken) => {
   return await fetch(url, artistParameters);
 }
 
-export const getArtist = async (artistId) => {
-  const token = await getApiAccessToken()
-  console.log(token);
-  return "Oh la la"
-  // return fetchCall(`${SPOTIFY_BASE_URL}/artists/${artistId}?query=api_key=${import.meta.env.VITE_TMDB_API_KEY}`);
+const searchArtist = async (searchInput) => {
+  let accessToken = await getApiAccessToken();
+  let jsonResponse = null;
+  try {
+    let res = await searchArtistWithin(searchInput,accessToken)
+    if (res.status === 401){
+      accessToken = await getFreshApiAccessToken();
+      res = await searchArtistWithin(searchInput,accessToken)
+    }
+    else if (!res.ok){
+      throw new Error('Failed to fetch artist, please try again');
+    }
+    else if (res.ok){
+      jsonResponse = await res.json();
+    }
+  } catch(error){
+    console.error(error.message);
+    return {
+      status: "error",
+      errorMessage: error.message || 'Failed to fetch artist, please try again',
+      error
+    }
+  }
+  return {
+    status: "success",
+    jsonResponse
+  };
 }
+
+export const searchArtistSpitFirstResult = async (searchInput) => {
+  const res = await searchArtist(searchInput);
+  if (res.status === "success") {
+    return {
+      status: "success",
+      artist: res.jsonResponse.artists.items[0]
+    }
+  }
+  else {
+    return res;
+  }
+}
+
+// export const searchArtistSpitFirstResult = async (searchInput) => {
+//   const jsonRes = await searchArtist(searchInput);
+//   return jsonRes.artists.items[0];
+// }
+
+// export const getArtist = async (artistId) => {
+//   const token = await getApiAccessToken()
+//   console.log(token);
+//   return "Oh la la"
+//   // return fetchCall(`${SPOTIFY_BASE_URL}/artists/${artistId}?query=api_key=${import.meta.env.VITE_TMDB_API_KEY}`);
+// }
