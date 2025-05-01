@@ -1,5 +1,4 @@
 import { useRef } from "react";
-import { searchArtistSpitFirstResult } from "/src/services/spotify-api";
 
 const SearchBar = () => {
   const searchInput = useRef(null);
@@ -9,7 +8,8 @@ const SearchBar = () => {
     const searchQuery = searchInput.current.value;
     try {
       console.log(`Search "${searchQuery}"`);
-      const json = await searchArtistSpitFirstResult(searchQuery);
+      // const json = await searchArtistSpitFirstResult(searchQuery);
+      const json = null;
       console.log(json);
       const artistID = json.artists.items[0].id;
       console.log(artistID);

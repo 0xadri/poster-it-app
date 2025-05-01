@@ -28,14 +28,15 @@
 - Loading effect: on Generate btn
 - Button/Action: Remove Artist From Artists Shown
 - Button/Action: Add Random Artist To Musicians
+- improve API calls, use Best Practices to deal with other states than 202 (error & isLoading updated accordingly)
+- Error Handling: Show msg when cannot fetch artist
+- API: Major Refactor implementing Best Practices on `API utility layer` and `Component layer`
 
 ### PROG
 
 ### TODO
 
-- improve API calls, use good practices to deal with other states than 202 (error & isLoading updated accordingly)
 - add "good" index to cells so only the changing ones get updated in the DOM
-- check if API calls make token public, check if .env var accessible from console
 - 1. API Fetch: avoid spamming w requests (several artists in 1 query? batch? other?)
 - 1.a web storage: Store Artist Spotify ID in localstorage
 - 1.b web storage: Store Artist Spotify Image URL in localstorage

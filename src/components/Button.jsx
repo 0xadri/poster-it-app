@@ -1,4 +1,4 @@
-const GenerateButton = ({ handleGenerate, isLoading }) => {
+const GenerateButton = ({ handleGenerate, isLoading, btnTxt }) => {
   return (
     <>
       <button
@@ -7,7 +7,7 @@ const GenerateButton = ({ handleGenerate, isLoading }) => {
       >
         {!isLoading ? (
           <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">
-            GENERATE
+            {btnTxt}
           </span>
         ) : (
           <span className="relative px-5 py-2.5 transition-all ease-in duration-75 bg-white dark:bg-gray-900 rounded-md group-hover:bg-transparent group-hover:dark:bg-transparent">

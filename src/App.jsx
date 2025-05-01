@@ -1,14 +1,14 @@
 import { useState } from "react";
 import "./App.css";
-import GenerateButton from "./components/GenerateButton";
+import Button from "./components/Button";
 import NavBar from "./components/NavBar";
 import Poster from "./components/poster";
 import SearchBar from "./components/SearchBar";
 import { artists } from "./utils/artistsmegalist";
 import { shuffleIt } from "./utils/shuffleArray";
-import { searchArtistSpitFirstResult } from "./services/spotify-api";
 import { mockList } from "./utils/mock-list";
 import ErrorComp from "./components/ErrorComp";
+import { searchArtistApiService } from "./services/apiService";
 
 function App() {
   const [artistsDeets, setArtistsDeets] = useState([]);
@@ -29,19 +29,19 @@ function App() {
     });
   };
 
-  const handleAdd = (cellId) => {
+  const handleAdd = async (cellId) => {
     console.log("add button clicked for cell: " + cellId);
     // get random artist name from list
     const artistsMegaList = [...new Set(artists)]; // get musician list & remove duplicates
     const artistName = shuffleIt(artistsMegaList).slice(0, 1)[0]; // pick x random items from list
-    // get image for artist name
     console.log(artistName);
+    // get image for artist name
     const searchAndAdd = async (artistName) => {
-      const res = await searchArtistSpitFirstResult(artistName);
-      if (res.status === "success") {
-        // let artist = await searchArtistSpitFirstResult(artistName);
-        const artist = {
-          ...res.artist,
+      try {
+        const data = await searchArtistApiService(artistName);
+        let artist = data.artists.items[0]; // get first result
+        artist = {
+          ...artist,
           origSearchTerm: artistName,
         };
         console.log(artist);
@@ -51,11 +51,25 @@ function App() {
           newArtistsDeets[cellId] = artist; // Modify array
           return newArtistsDeets;
         });
-      } else {
-        setErrorMsg(res.errorMessage);
+      } catch (err) {
+        setErrorMsg(err.message);
+      } finally {
+        setIsLoading(false);
       }
     };
     searchAndAdd(artistName);
+  };
+
+  const handleTest = async () => {
+    try {
+      const data = await searchArtistApiService("Michael Jackson");
+      // setUsers(data);
+      console.log(data);
+    } catch (err) {
+      setErrorMsg(err.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleGenerate = () => {
@@ -70,28 +84,32 @@ function App() {
         const artistName = artistsSelected[i];
         console.log(i);
         console.log(artistName);
-        let res = await searchArtistSpitFirstResult(artistName);
-        if (res.status === "success") {
-          const artist = {
-            ...res.artist,
+        try {
+          const data = await searchArtistApiService(artistName);
+          let artist = data.artists.items[0]; // get first result
+          artist = {
+            ...artist,
             origSearchTerm: artistName,
           };
           artistsSelectedDetails.push(artist);
           setArtistsDeets([...artistsSelectedDetails]);
-        } else {
-          setErrorMsg(res.errorMessage);
+        } catch (err) {
+          setErrorMsg(err.message);
+          setIsLoading(false);
         }
       }
       console.log(artistsSelectedDetails);
       setIsLoading(false);
     };
-    const mockFetchDetailsForEachArtist = () => {
-      setIsLoading(true);
-      setArtistsDeets([...mockList]);
-      setIsLoading(false);
-    };
     fetchDetailsForEachArtist(); // Prod
-    // mockFetchDetailsForEachArtist(); // Dev Purpose
+
+    // // Dev Purpose
+    // const mockFetchDetailsForEachArtist = () => {
+    //   setIsLoading(true);
+    //   setArtistsDeets([...mockList]);
+    //   setIsLoading(false);
+    // };
+    // mockFetchDetailsForEachArtist();
   };
 
   return (
@@ -102,12 +120,17 @@ function App() {
         <main className="h-full pt-15 px-15">
           <h1 className="text-8xl font-bold my-10">Let's get started!</h1>
           <div>
-            <GenerateButton
+            <Button
               handleGenerate={handleGenerate}
               isLoading={isLoading}
+              btnTxt="GENERATE"
             />
             {/* <SearchBar /> */}
-
+            <Button
+              handleGenerate={handleTest}
+              isLoading={isLoading}
+              btnTxt="TEST"
+            />
             <Poster
               arrayIds={arrayIds}
               artistsDeets={artistsDeets}
