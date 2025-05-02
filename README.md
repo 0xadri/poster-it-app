@@ -53,10 +53,9 @@
 
 ### SHOULD
 
-- Save Images in Database
-
 ### COULD
 
+- Save Images in Database
 - API Fetch: Musicians List
 - API Fetch: YOUR Top Artists On Spotify
 
