@@ -49,12 +49,22 @@ function App() {
             ...imgUrls, // enrich with more images
           ];
         }
-        if (
-          newOneArtistDeets.images_mf.length > newOneArtistDeets.images_mf_curr
-        ) {
-          newOneArtistDeets.images_mf_curr += 1;
-        } else {
+        if (newOneArtistDeets.images_mf_curr === undefined) {
+          // first "next" click
           newOneArtistDeets.images_mf_curr = 0;
+          if (newOneArtistDeets.images_mf.length > 0) {
+            newOneArtistDeets.images_mf_curr = 1;
+          }
+        } else {
+          // subsequent "next" clicks
+          if (
+            newOneArtistDeets.images_mf.length >
+            newOneArtistDeets.images_mf_curr + 1
+          ) {
+            newOneArtistDeets.images_mf_curr += 1;
+          } else {
+            newOneArtistDeets.images_mf_curr = 0;
+          }
         }
         newArtistsDeets[cellId - 1] = newOneArtistDeets; // Modify array
         console.log(newArtistsDeets);
