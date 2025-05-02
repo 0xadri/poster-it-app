@@ -20,9 +20,9 @@ export const addOneArtistToCache = (artist) => {
   if (!isPresent){
     artists.push(artist);  // add artist
     console.log("not present, added to web storage...");
+    console.log(artist);
+    console.log(artists);
   } 
-  console.log(artist);
-  console.log(artists);
   sessionStorage.setItem(WEB_STORAGE_ID, JSON.stringify(artists));
 }
 

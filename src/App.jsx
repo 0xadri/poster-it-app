@@ -54,37 +54,6 @@ function App() {
     }
   };
 
-  const handleAdd = async (cellId) => {
-    console.log("add button clicked for cell: " + cellId);
-    // get random artist name from list
-    const artistsMegaList = [...new Set(artists)]; // get musician list & remove duplicates
-    const artistName = shuffleIt(artistsMegaList).slice(0, 1)[0]; // pick x random items from list
-    console.log(artistName);
-    // get image for artist name
-    const searchAndAdd = async (artistName) => {
-      try {
-        const data = await searchArtist(artistName);
-        let artist = data.artists.items[0]; // get first result
-        artist = {
-          ...artist,
-          origSearchTerm: artistName,
-        };
-        console.log(artist);
-        // update state
-        setArtistsDeets((prev) => {
-          const newArtistsDeets = [...prev]; // Clone array for immutability
-          newArtistsDeets[cellId - 1] = artist; // Modify array
-          return newArtistsDeets;
-        });
-      } catch (err) {
-        setErrorMsg(err.message);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-    searchAndAdd(artistName);
-  };
-
   const handleTest = async () => {
     try {
       const artist = "Michael Jackson";
@@ -97,6 +66,42 @@ function App() {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const handleAdd = async (cellId) => {
+    console.log("add button clicked for cell: " + cellId);
+    // get random artist name from list
+    const artistsMegaList = [...new Set(artists)]; // get musician list & remove duplicates
+    const artistName = shuffleIt(artistsMegaList).slice(0, 1)[0]; // pick x random items from list
+    console.log(artistName);
+    // get image for artist name
+    const searchAndAdd = async (artistName) => {
+      const artistCache = getOneArtistInCache(artistName); // get artist from cache
+      let artistApi;
+      if (!artistCache) {
+        try {
+          const data = await searchArtist(artistName); // get from api otherwise
+          artistApi = data.artists.items[0]; // get first result
+          artistApi = {
+            ...artistApi,
+            images_mf: [artistApi.images[0]], // enrich w init img
+            orig_search: artistName, // enrich w search term
+          };
+          addOneArtistToCache(artistApi); // add artist to cache
+        } catch (err) {
+          setErrorMsg(err.message);
+        } finally {
+          setIsLoading(false);
+        }
+      }
+      // update state
+      setArtistsDeets((prev) => {
+        const newArtistsDeets = [...prev]; // Clone array for immutability
+        newArtistsDeets[cellId - 1] = artistCache || artistApi; // add artist from cache is present, otherwise from api
+        return newArtistsDeets;
+      });
+    };
+    searchAndAdd(artistName);
   };
 
   const handleGenerate = () => {
@@ -119,7 +124,8 @@ function App() {
             artistApi = data.artists.items[0]; // get first result
             artistApi = {
               ...artistApi,
-              origSearchTerm: artistName, // enrich w search term
+              images_mf: [artistApi.images[0]], // enrich w init img
+              orig_search_mf: artistName, // enrich w search term
             };
             addOneArtistToCache(artistApi); // add artist to cache
           } catch (err) {
