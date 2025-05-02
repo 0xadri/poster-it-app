@@ -11,7 +11,22 @@ export const shuffleIt = (array) => {
     // And swap it with the current element.
     [ array[currentIndex], array[randomIndex] ] = [ array[randomIndex], array[currentIndex] ];
   }
-
-  return array;
+ return array;
 }
-  
+
+export const getNextIndexInImageArray = (currentIndex, arrayLength) => {
+  // first click on "next"
+  if (currentIndex === "first") {
+    currentIndex = 0;
+    if (arrayLength && arrayLength > 0) currentIndex = 1;
+    return currentIndex;
+  } 
+  // subsequent clicks
+  if (arrayLength > currentIndex + 1) {
+    currentIndex += 1
+  } 
+  else {
+    currentIndex = 0;
+  }
+  return currentIndex;
+}

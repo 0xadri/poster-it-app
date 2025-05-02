@@ -5,7 +5,7 @@ import NavBar from "./components/NavBar";
 import Poster from "./components/Poster";
 import SearchBar from "./components/SearchBar";
 import { artists } from "./utils/artistsmegalist";
-import { shuffleIt } from "./utils/shuffleArray";
+import { getNextIndexInImageArray, shuffleIt } from "./utils/miscUtils";
 import { mockList } from "./utils/mock-list";
 import ErrorComp from "./components/ErrorComp";
 import { searchArtist } from "./services/apiSpotify";
@@ -49,23 +49,10 @@ function App() {
             ...imgUrls, // enrich with more images
           ];
         }
-        if (newOneArtistDeets.images_mf_curr === undefined) {
-          // first "next" click
-          newOneArtistDeets.images_mf_curr = 0;
-          if (newOneArtistDeets.images_mf.length > 0) {
-            newOneArtistDeets.images_mf_curr = 1;
-          }
-        } else {
-          // subsequent "next" clicks
-          if (
-            newOneArtistDeets.images_mf.length >
-            newOneArtistDeets.images_mf_curr + 1
-          ) {
-            newOneArtistDeets.images_mf_curr += 1;
-          } else {
-            newOneArtistDeets.images_mf_curr = 0;
-          }
-        }
+        newOneArtistDeets.images_mf_curr = getNextIndexInImageArray(
+          newOneArtistDeets.images_mf_curr || "first",
+          newOneArtistDeets.images_mf.length
+        );
         newArtistsDeets[cellId - 1] = newOneArtistDeets; // Modify array
         console.log(newArtistsDeets);
         return newArtistsDeets;
