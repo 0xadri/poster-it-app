@@ -6,10 +6,10 @@ const CellCover = ({ deets, cellId, handleDelete, handleAdd, handleNext }) => {
       {deets &&
       deets.images &&
       deets.name &&
-      deets.images[0] &&
-      deets.images[0].url ? (
+      deets.images_mf &&
+      deets.images_mf[0] ? (
         <div className="relative h-full group cursor-pointer overflow-hidden">
-          <img className="" src={deets?.images[0]?.url} />
+          <img className="" src={deets.images_mf[deets.images_mf_curr || 0]} />
           <div className="absolute z-2 left-0 top-0 mx-2 mt-2 hidden group-hover:block">
             <button
               onClick={() => handleDelete(cellId)}
@@ -24,7 +24,7 @@ const CellCover = ({ deets, cellId, handleDelete, handleAdd, handleNext }) => {
               Next
             </button>
             <div className="mt-1 py-1 px-1 rounded-sm bg-slate-500/30">
-              <span className="block text-sm">{deets?.name}</span>
+              <span className="block text-sm">{deets.name}</span>
               {/* <span className="text-xs">Search: {deets?.origSearchTerm}</span> */}
             </div>
           </div>

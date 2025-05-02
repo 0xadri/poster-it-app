@@ -43,8 +43,21 @@ function App() {
       setArtistsDeets((prev) => {
         const newArtistsDeets = [...prev]; // Clone array for immutability
         const newOneArtistDeets = { ...newArtistsDeets[cellId - 1] }; // Clone object for immutability
-        newOneArtistDeets.images[0].url = imgUrls[0];
+        if (newOneArtistDeets.images_mf.length < 2) {
+          newOneArtistDeets.images_mf = [
+            ...newOneArtistDeets.images_mf,
+            ...imgUrls, // enrich with more images
+          ];
+        }
+        if (
+          newOneArtistDeets.images_mf.length > newOneArtistDeets.images_mf_curr
+        ) {
+          newOneArtistDeets.images_mf_curr += 1;
+        } else {
+          newOneArtistDeets.images_mf_curr = 0;
+        }
         newArtistsDeets[cellId - 1] = newOneArtistDeets; // Modify array
+        console.log(newArtistsDeets);
         return newArtistsDeets;
       });
     } catch (err) {
@@ -84,7 +97,7 @@ function App() {
           artistApi = data.artists.items[0]; // get first result
           artistApi = {
             ...artistApi,
-            images_mf: [artistApi.images[0]], // enrich w init img
+            images_mf: [artistApi.images[0].url], // enrich w init img
             orig_search: artistName, // enrich w search term
           };
           addOneArtistToCache(artistApi); // add artist to cache
@@ -124,7 +137,7 @@ function App() {
             artistApi = data.artists.items[0]; // get first result
             artistApi = {
               ...artistApi,
-              images_mf: [artistApi.images[0]], // enrich w init img
+              images_mf: [artistApi.images[0].url], // enrich w init img
               orig_search_mf: artistName, // enrich w search term
             };
             addOneArtistToCache(artistApi); // add artist to cache
