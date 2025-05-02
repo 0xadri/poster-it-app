@@ -13,6 +13,7 @@ import {
   getDiscogsIdForArtist,
   getDiscogsImgURLsForArtist,
 } from "./services/apiDiscogs";
+import { addOneArtistToCache, getOneArtistInCache } from "./utils/browserCache";
 
 function App() {
   const [artistsDeets, setArtistsDeets] = useState([]);
@@ -110,19 +111,24 @@ function App() {
         const artistName = artistsSelected[i];
         console.log(i);
         console.log(artistName);
-        try {
-          const data = await searchArtist(artistName);
-          let artist = data.artists.items[0]; // get first result
-          artist = {
-            ...artist,
-            origSearchTerm: artistName,
-          };
-          artistsSelectedDetails.push(artist);
-          setArtistsDeets([...artistsSelectedDetails]);
-        } catch (err) {
-          setErrorMsg(err.message);
-          setIsLoading(false);
+        const artistCache = getOneArtistInCache(artistName); // get artist from cache
+        let artistApi;
+        if (!artistCache) {
+          try {
+            const data = await searchArtist(artistName); // get from api otherwise
+            artistApi = data.artists.items[0]; // get first result
+            artistApi = {
+              ...artistApi,
+              origSearchTerm: artistName, // enrich w search term
+            };
+            addOneArtistToCache(artistApi); // add artist to cache
+          } catch (err) {
+            setErrorMsg(err.message);
+            setIsLoading(false);
+          }
         }
+        artistsSelectedDetails.push(artistCache || artistApi); // add artist from cache is present, otherwise from api
+        setArtistsDeets([...artistsSelectedDetails]);
       }
       console.log(artistsSelectedDetails);
       setIsLoading(false);
