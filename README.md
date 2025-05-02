@@ -31,12 +31,13 @@
 - improve API calls, use Best Practices to deal with other states than 202 (error & isLoading updated accordingly)
 - Error Handling: Show msg when cannot fetch artist
 - API: Major Refactor implementing Best Practices on `API utility layer` and `Component layer`
+- add "good" key to cells so Real DOM only updates the changing ones
+- fix 1st item not added
 
 ### PROG
 
 ### TODO
 
-- add "good" index to cells so only the changing ones get updated in the DOM
 - 1. API Fetch: avoid spamming w requests (several artists in 1 query? batch? other?)
 - 1.a web storage: Store Artist Spotify ID in localstorage
 - 1.b web storage: Store Artist Spotify Image URL in localstorage

@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./App.css";
 import Button from "./components/Button";
 import NavBar from "./components/NavBar";
-import Poster from "./components/poster";
+import Poster from "./components/Poster";
 import SearchBar from "./components/SearchBar";
 import { artists } from "./utils/artistsmegalist";
 import { shuffleIt } from "./utils/shuffleArray";
@@ -16,15 +16,15 @@ function App() {
   const [errorMsg, setErrorMsg] = useState(null);
 
   const TOTAL_ITEMS = 90;
-  let arrayIds = [];
+  let cellIds = [];
   for (let i = 1; i <= TOTAL_ITEMS; i++) {
-    arrayIds.push(i);
+    cellIds.push(i);
   }
 
   const handleDeleteCell = (cellId) => {
     setArtistsDeets((prev) => {
       const newArtistsDeets = [...prev]; // Clone array for immutability
-      newArtistsDeets[cellId] = null; // Modify array
+      newArtistsDeets[cellId - 1] = null; // Modify array
       return newArtistsDeets;
     });
   };
@@ -48,7 +48,7 @@ function App() {
         // update state
         setArtistsDeets((prev) => {
           const newArtistsDeets = [...prev]; // Clone array for immutability
-          newArtistsDeets[cellId] = artist; // Modify array
+          newArtistsDeets[cellId - 1] = artist; // Modify array
           return newArtistsDeets;
         });
       } catch (err) {
@@ -132,7 +132,7 @@ function App() {
               btnTxt="TEST"
             />
             <Poster
-              arrayIds={arrayIds}
+              cellIds={cellIds}
               artistsDeets={artistsDeets}
               handleDeleteCell={handleDeleteCell}
               handleAdd={handleAdd}

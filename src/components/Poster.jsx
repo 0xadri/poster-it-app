@@ -1,31 +1,19 @@
-import NumberInBrackets from "./NumberInBrackets";
-import ArtistCoverImage from "./ArtistCoverImage";
+import { v4 as uuidv4 } from "uuid";
+import CellCover from "./CellCover";
 
-const Poster = ({ arrayIds, artistsDeets, handleDeleteCell, handleAdd }) => {
+const Poster = ({ cellIds, artistsDeets, handleDeleteCell, handleAdd }) => {
   return (
-    <>
-      <div className="grid grid-cols-6 gap-2">
-        {arrayIds.map((item) => {
-          return (
-            <div
-              key={item}
-              className="aspect-square min-h-0 overflow-hidden rounded-lg bg-fuchsia-500 p-1 bg-gradient-to-tl from-indigo-600 to-pink-600"
-            >
-              {artistsDeets.length === 0 ? (
-                <NumberInBrackets number={item} handleAdd={handleAdd} />
-              ) : (
-                <ArtistCoverImage
-                  deets={artistsDeets[item]}
-                  number={item}
-                  handleDeleteCell={handleDeleteCell}
-                  handleAdd={handleAdd}
-                />
-              )}
-            </div>
-          );
-        })}
-      </div>
-    </>
+    <div className="grid grid-cols-6 gap-2">
+      {cellIds.map((cellId) => (
+        <CellCover
+          key={uuidv4()}
+          deets={artistsDeets[cellId - 1]}
+          cellId={cellId}
+          handleDeleteCell={handleDeleteCell}
+          handleAdd={handleAdd}
+        />
+      ))}
+    </div>
   );
 };
 
