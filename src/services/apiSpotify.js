@@ -1,9 +1,9 @@
-const BASE_URL="https://api.spotify.com/v1";
+const SPOTIFY_BASE_URL="https://api.spotify.com/v1";
+const SPOTIFY_TOKEN_URL="https://accounts.spotify.com/api/token";
 
 /*
- * Docs Spotify
- * https://developer.spotify.com/documentation/web-api
- */ 
+ * Docs Spotify: https://developer.spotify.com/documentation/web-api
+ */
 
 function getAccessToken() {
   return localStorage.getItem('access_token');
@@ -18,15 +18,15 @@ function clearTokens() {
 }
 
 async function refreshAccessToken() {
-  const response = await fetch('https://accounts.spotify.com/api/token', {
+  const response = await fetch(SPOTIFY_TOKEN_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body:'grant_type=client_credentials&client_id=' + import.meta.env.VITE_CLIENT_ID + '&client_secret=' + import.meta.env.VITE_CLIENT_SECRET
+    body:'grant_type=client_credentials&client_id=' + import.meta.env.VITE_SPOTIFY_CLIENT_ID + '&client_secret=' + import.meta.env.VITE_SPOTIFY_CLIENT_SECRET
   });
 
   if (!response.ok) {
     clearTokens();
-    throw new Error('Failed to refresh access token');
+    throw new Error(`Failed to refresh access token (${response.status})`);
   }
 
   const data = await response.json();
@@ -43,7 +43,7 @@ async function apiFetch(endpoint, options = {}, retry = true) {
     ...options.headers,
   };
 
-  const response = await fetch(`${BASE_URL}${endpoint}`, {
+  const response = await fetch(`${SPOTIFY_BASE_URL}${endpoint}`, {
     ...options,
     headers,
   });
@@ -53,26 +53,22 @@ async function apiFetch(endpoint, options = {}, retry = true) {
       const newToken = await refreshAccessToken();
       return apiFetch(endpoint, { ...options }, false); // Retry once
     } catch (err) {
-      throw new Error('Unauthorized. Please log in again.');
+      throw new Error(`Unauthorized (${response.status}). Please log in again.`);
     }
   }
 
   if (!response.ok) {
     const error = await response.json();
-    throw new Error(error.message || 'API error');
+    throw new Error((error.message || 'API error') + ` (${response.status})`);
   }
 
   return await response.json();
 }
 
-export const searchArtistApiService = async (searchInput) => {
+export const searchArtist = async (searchInput) => {
   const endpoint = `/search?q=` + searchInput +'&type=artist';
   const options = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization' : 'Bearer ' + getAccessToken()
-    }
+    method: 'GET'
   }
   return apiFetch(endpoint, options);
 }

@@ -33,15 +33,15 @@
 - API: Major Refactor implementing Best Practices on `API utility layer` and `Component layer`
 - add "good" key to cells so Real DOM only updates the changing ones
 - fix 1st item not added
+- API Fetch: New Images For Artist (find more sources)
 
 ### PROG
 
+- API Cache: Cache Artist Details in web storage: Artist Name, Artist Spotify ID, Artist Discogs ID, Artist Image URLs
+- Next/Prev Button: Show Next/Prev Image For Artist
+
 ### TODO
 
-- 1. API Fetch: avoid spamming w requests (several artists in 1 query? batch? other?)
-- 1.a web storage: Store Artist Spotify ID in localstorage
-- 1.b web storage: Store Artist Spotify Image URL in localstorage
-- API Fetch: New Image For Artist (find more sources)
 - Expand Mock Top Artist List (Hardcoded)
 - Pick Poster Format
 - Pick Poster Size Horiz

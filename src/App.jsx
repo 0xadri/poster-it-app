@@ -8,7 +8,11 @@ import { artists } from "./utils/artistsmegalist";
 import { shuffleIt } from "./utils/shuffleArray";
 import { mockList } from "./utils/mock-list";
 import ErrorComp from "./components/ErrorComp";
-import { searchArtistApiService } from "./services/apiService";
+import { searchArtist } from "./services/apiSpotify";
+import {
+  getDiscogsIdForArtist,
+  getDiscogsImgURLsForArtist,
+} from "./services/apiDiscogs";
 
 function App() {
   const [artistsDeets, setArtistsDeets] = useState([]);
@@ -21,12 +25,32 @@ function App() {
     cellIds.push(i);
   }
 
-  const handleDeleteCell = (cellId) => {
+  const handleDelete = (cellId) => {
     setArtistsDeets((prev) => {
       const newArtistsDeets = [...prev]; // Clone array for immutability
       newArtistsDeets[cellId - 1] = null; // Modify array
       return newArtistsDeets;
     });
+  };
+
+  const handleNext = async (cellId, artist) => {
+    try {
+      const id = await getDiscogsIdForArtist(artist);
+      const imgUrls = await getDiscogsImgURLsForArtist(id);
+      console.log(`${artist} id: ${id}`);
+      console.log(imgUrls);
+      setArtistsDeets((prev) => {
+        const newArtistsDeets = [...prev]; // Clone array for immutability
+        const newOneArtistDeets = { ...newArtistsDeets[cellId - 1] }; // Clone object for immutability
+        newOneArtistDeets.images[0].url = imgUrls[0];
+        newArtistsDeets[cellId - 1] = newOneArtistDeets; // Modify array
+        return newArtistsDeets;
+      });
+    } catch (err) {
+      setErrorMsg(err.message);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleAdd = async (cellId) => {
@@ -38,7 +62,7 @@ function App() {
     // get image for artist name
     const searchAndAdd = async (artistName) => {
       try {
-        const data = await searchArtistApiService(artistName);
+        const data = await searchArtist(artistName);
         let artist = data.artists.items[0]; // get first result
         artist = {
           ...artist,
@@ -62,9 +86,11 @@ function App() {
 
   const handleTest = async () => {
     try {
-      const data = await searchArtistApiService("Michael Jackson");
-      // setUsers(data);
-      console.log(data);
+      const artist = "Michael Jackson";
+      const id = await getDiscogsIdForArtist(artist);
+      const imgUrls = await getDiscogsImgURLsForArtist(id);
+      console.log(`${artist} id: ${id}`);
+      console.log(imgUrls);
     } catch (err) {
       setErrorMsg(err.message);
     } finally {
@@ -85,7 +111,7 @@ function App() {
         console.log(i);
         console.log(artistName);
         try {
-          const data = await searchArtistApiService(artistName);
+          const data = await searchArtist(artistName);
           let artist = data.artists.items[0]; // get first result
           artist = {
             ...artist,
@@ -132,10 +158,13 @@ function App() {
               btnTxt="TEST"
             />
             <Poster
-              cellIds={cellIds}
-              artistsDeets={artistsDeets}
-              handleDeleteCell={handleDeleteCell}
-              handleAdd={handleAdd}
+              {...{
+                cellIds,
+                artistsDeets,
+                handleDelete,
+                handleAdd,
+                handleNext,
+              }}
             />
           </div>
         </main>
