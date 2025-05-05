@@ -182,7 +182,7 @@ const PosterPage = () => {
   return (
     <>
       {errorMsg && <ErrorComp message={errorMsg} />}
-      <main className="h-full pt-25 px-15">
+      <main className="h-full pt-23 px-15 max-sm:px-4 max-sm:pt-21">
         <InputTotal total={total} handleTotal={handleTotal} />
         <InputColumns columns={columns} handleColumns={handleColumns} />
         <Button
