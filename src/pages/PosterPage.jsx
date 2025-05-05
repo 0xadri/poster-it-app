@@ -102,7 +102,7 @@ const PosterPage = () => {
           artistApi = data.artists.items[0]; // get first result
           artistApi = {
             ...artistApi,
-            images_mf: [artistApi.images[0].url], // enrich w init img
+            images_mf: [artistApi.images[0]?.url], // enrich w init img
             orig_search: artistName, // enrich w search term
           };
           addOneArtistToCache(artistApi); // add artist to cache
@@ -142,7 +142,7 @@ const PosterPage = () => {
             artistApi = data.artists.items[0]; // get first result
             artistApi = {
               ...artistApi,
-              images_mf: [artistApi.images[0].url], // enrich w init img
+              images_mf: [artistApi.images[0]?.url], // enrich w init img
               orig_search_mf: artistName, // enrich w search term
             };
             addOneArtistToCache(artistApi); // add artist to cache
@@ -177,7 +177,7 @@ const PosterPage = () => {
           isLoading={isLoading}
           btnTxt="GENERATE"
         />
-        {/* <Input columns={columns} handleColumns={handleColumns} /> */}
+        <Input columns={columns} handleColumns={handleColumns} />
         <Poster
           {...{
             columns,

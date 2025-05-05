@@ -10,7 +10,7 @@ const Poster = ({
   handleNext,
 }) => {
   return (
-    <div className={`grid grid-cols-6 gap-2 pb-10`}>
+    <div className={`grid grid-cols-${columns} gap-2 pb-10`}>
       {cellIds.map((cellId) => (
         <CellCover
           key={uuidv4()}
