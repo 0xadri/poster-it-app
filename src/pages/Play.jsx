@@ -1,5 +1,4 @@
 import { useState } from "react";
-import Input from "../components/Input";
 import { v4 as uuidv4 } from "uuid";
 
 const Play = () => {

@@ -5,7 +5,7 @@ import { artists } from "../utils/artistsmegalist";
 import { getNextIndexInImageArray, shuffleIt } from "../utils/miscUtils";
 import { mockList } from "../utils/mock-list";
 import ErrorComp from "../components/ErrorComp";
-import Input from "../components/Input";
+import InputColumns from "../components/InputColumns";
 import { searchArtist } from "../services/apiSpotify";
 import {
   getDiscogsIdForArtist,
@@ -15,6 +15,7 @@ import {
   addOneArtistToCache,
   getOneArtistInCache,
 } from "../utils/browserCache";
+import InputTotal from "../components/InputTotal";
 
 const COLUMNS_DEFAULT = 6;
 
@@ -23,12 +24,19 @@ const PosterPage = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState(null);
   const [columns, setColumns] = useState(COLUMNS_DEFAULT);
+  const [total, setTotal] = useState(90);
 
-  const TOTAL_ITEMS = 90;
   let cellIds = [];
-  for (let i = 1; i <= TOTAL_ITEMS; i++) {
+  for (let i = 1; i <= total; i++) {
     cellIds.push(i);
   }
+
+  const handleTotal = (event) => {
+    let value = parseInt(event.target.value, 10);
+    if (value < 1) value = 1;
+    if (value > 500) value = 500;
+    setTotal(value);
+  };
 
   const handleColumns = (event) => {
     let value = parseInt(event.target.value, 10);
@@ -127,7 +135,7 @@ const PosterPage = () => {
 
   const handleGenerate = () => {
     const artistsMegaList = [...new Set(artists)]; // get musician list & remove duplicates
-    const artistsSelected = shuffleIt(artistsMegaList).slice(0, TOTAL_ITEMS); // pick x random items from list
+    const artistsSelected = shuffleIt(artistsMegaList).slice(0, total); // pick x random items from list
 
     // Create array, add each items as object with artist name, img url, etc
     const artistsSelectedDetails = [];
@@ -175,12 +183,13 @@ const PosterPage = () => {
     <>
       {errorMsg && <ErrorComp message={errorMsg} />}
       <main className="h-full pt-25 px-15">
+        <InputTotal total={total} handleTotal={handleTotal} />
         <Button
           handleGenerate={handleGenerate}
           isLoading={isLoading}
           btnTxt="GENERATE"
         />
-        <Input columns={columns} handleColumns={handleColumns} />
+        <InputColumns columns={columns} handleColumns={handleColumns} />
         <Poster
           {...{
             columns,
