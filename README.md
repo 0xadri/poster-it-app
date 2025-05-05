@@ -34,15 +34,17 @@
 - add "good" key to cells so Real DOM only updates the changing ones
 - fix 1st item not added
 - API Fetch: New Images For Artist (find more sources)
+- API Cache: Cache Artist Details in web storage: Artist Name, Artist Spotify ID, Artist Discogs ID, Artist Image URLs
+- Next Button: Show Next Image For Artist
+- next/delete btn on different lines
 
 ### PROG
 
-- API Cache: Cache Artist Details in web storage: Artist Name, Artist Spotify ID, Artist Discogs ID, Artist Image URLs
-- Next/Prev Button: Show Next/Prev Image For Artist
+- Pick Total Number Items
+- API Fetch: YOUR Top Artists On Spotify
 
 ### TODO
 
-- Expand Mock Top Artist List (Hardcoded)
 - Pick Poster Format
 - Pick Poster Size Horiz
 - Pick Poster Size Vert
@@ -57,7 +59,7 @@
 
 - Save Images in Database
 - API Fetch: Musicians List
-- API Fetch: YOUR Top Artists On Spotify
+- Expand Mock Top Artist List (Hardcoded)
 
 # Preview
 
