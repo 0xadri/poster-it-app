@@ -1,14 +1,24 @@
 ### Tech
 
-`Javascript` · `ReactJS`· `Vite` · `NodeJS` · `TailwindCSS`
+`Javascript` · `ReactJS`· `Vite` · `NodeJS` · `TailwindCSS` · `Spotify API` · `Discogs API`
+
+### Tech Details
+
+✣ **`ReactJS`**: `useState`, `router`, `spreader syntax`, `props drilling`, `lifting the state`, `compute values`, `derive values`, `state mgmt`, ` API Data Fetching`, `API Data Fetching Best Practices`
+
+✣ **`JavaScript`**: `spreader syntax`, `map()`, `web storage`, and more
+
+✣ **`TailwindCSS`**: `Nav Menu`, `Grid`, `Positioning`, and more
 
 ### Goals
 
-✣ Practice `ReactJS`: `useState`, `useRef`, `router`, `spreader syntax`, `props drilling`, `lifting the state`, `compute values`, `derive values`, `state mgmt`, `Data Fetching via API`, `Spotify API`
+✣ Build a fun app that I would actually like to use myself
 
-✣ Practice `JavaScript`: `spreader syntax`, `map()`,
+✣ Learn By Doing
 
-✣ Practice `TailwindCSS`
+✣ Dig into Tailwind to design a nice look and feel
+
+✣ Integrate with several 3rd party APIs
 
 # Try It Live
 

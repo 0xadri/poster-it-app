@@ -184,12 +184,12 @@ const PosterPage = () => {
       {errorMsg && <ErrorComp message={errorMsg} />}
       <main className="h-full pt-25 px-15">
         <InputTotal total={total} handleTotal={handleTotal} />
+        <InputColumns columns={columns} handleColumns={handleColumns} />
         <Button
           handleGenerate={handleGenerate}
           isLoading={isLoading}
           btnTxt="GENERATE"
         />
-        <InputColumns columns={columns} handleColumns={handleColumns} />
         <Poster
           {...{
             columns,

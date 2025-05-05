@@ -38,6 +38,7 @@ none
 
 ### COULD
 
+- Responsive UX: mobile, tablet & desktop friendly
 - API Fetch: YOUR Top Artists On Spotify
 - Pick Poster Format
 - Pick Poster Size Horiz
