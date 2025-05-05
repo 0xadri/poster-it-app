@@ -4,6 +4,8 @@ Pitch: Create a poster of your favorite musicians in 2min.
 
 ### 🚀 [Try It Live](http://poster-it-app.s3-website.eu-north-1.amazonaws.com/) 🚀
 
+App optimized for **desktop**. Very limited features on mobile devices.
+
 _Credits to Discogs and Spotify for the images._
 
 # Tech
