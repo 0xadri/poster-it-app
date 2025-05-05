@@ -9,7 +9,7 @@ const CellCover = ({ deets, cellId, handleDelete, handleAdd, handleNext }) => {
       deets.images_mf &&
       deets.images_mf[0] ? (
         <div className="relative h-full group overflow-hidden">
-          <img className="" src={deets.images_mf[deets.images_mf_curr || 0]} />
+          <img src={deets.images_mf[deets.images_mf_curr || 0]} />
           <div className="absolute z-2 left-0 top-0 mx-2 mt-2 hidden group-hover:block">
             <button
               onClick={() => handleNext(cellId, deets.name)}
