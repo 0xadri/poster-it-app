@@ -31,7 +31,10 @@ const PosterPage = () => {
   }
 
   const handleColumns = (event) => {
-    setColumns(event.target.value);
+    let value = parseInt(event.target.value, 10);
+    if (value < 1) value = 1;
+    if (value > 12) value = 12;
+    setColumns(value);
   };
 
   const handleDelete = (cellId) => {

@@ -37,12 +37,11 @@
 - API Cache: Cache Artist Details in web storage: Artist Name, Artist Spotify ID, Artist Discogs ID, Artist Image URLs
 - Next Button: Show Next Image For Artist
 - Next/Delete Buttons: on different lines
+- Pick Items Per Column
 
 ### PROG
 
-- Pick Items Per Column
 - Pick Total Number Items
-- API Fetch: YOUR Top Artists On Spotify
 
 ### TODO
 
@@ -50,6 +49,7 @@
 
 ### COULD
 
+- API Fetch: YOUR Top Artists On Spotify
 - Pick Poster Format
 - Pick Poster Size Horiz
 - Pick Poster Size Vert
