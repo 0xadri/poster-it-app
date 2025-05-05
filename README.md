@@ -4,7 +4,7 @@ Pitch: Create a poster of your favorite musicians in 2min.
 
 ### 🚀 [Try It Live](http://poster-it-app.s3-website.eu-north-1.amazonaws.com/) 🚀
 
-App optimized for **desktop**. Very limited features on mobile devices.
+App optimized for **desktop**. Limited set of features on mobile devices.
 
 _Credits to Discogs and Spotify for the images._
 
@@ -12,29 +12,37 @@ _Credits to Discogs and Spotify for the images._
 
 `Javascript` · `ReactJS`· `Vite` · `NodeJS` · `TailwindCSS` · `Spotify API` · `Discogs API`
 
-### In Details
+### Details
 
-✣ **`ReactJS`**: `useState`, `router`, `spreader syntax`, `props drilling`, `lifting the state`, `compute values`, `derive values`, `state mgmt`, ` API Data Fetching`, `API Data Fetching Best Practices`
+✣ **`ReactJS`**: `useState`, `router`, `spreader syntax`, `props drilling`, `lifting the state`, `compute values`, `derive values`, `state mgmt`, `API Data Fetching`, `API Data Fetching Best Practices`
 
 ✣ **`JavaScript`**: `spreader syntax`, `map()`, `web storage`, and more
 
 ✣ **`TailwindCSS`**: `Nav Menu`, `Grid`, `Positioning`, and more
 
-# Overview
+## Build
 
-### Goals
+1. download this repo
 
-✣ Build a fun app that I would actually like to use myself
+2. `npm install`
 
-✣ Learn By Doing
+3. `npm run dev`
 
-✣ Dig into Tailwind to design a nice look and feel
+4. `.env` file expected to have 4 variables: `VITE_SPOTIFY_CLIENT_ID`, `VITE_SPOTIFY_CLIENT_SECRET`, `VITE_DISCOGS_CONSUMER_KEY`, `VITE_DISCOGS_CONSUMER_SECRET`. How to get them? Check out the docs of Spotify and Discogs.
 
-✣ Integrate with several 3rd party APIs
+## Project Goals
 
-### Project Tasks
+- Build a fun app that I would actually like to use myself
 
-✣ [Tasks Tracker](./TASKS_LOG.md)
+- Learn By Doing
+
+- Dig into Tailwind to design a nice look and feel
+
+- Integrate with several 3rd party APIs
+
+## Project Mgmt
+
+[Tasks Tracker](./TASKS_LOG.md)
 
 # Preview
 
